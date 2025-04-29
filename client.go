@@ -10,6 +10,7 @@ import (
 	"golang.org/x/sync/errgroup"
 )
 
+// Client is a client for the Cryptellation stack.
 type Client interface {
 	// GetExchange retrieves an exchange by name.
 	GetExchange(
@@ -36,20 +37,25 @@ type client struct {
 	exchanges exchangesclient.Client
 }
 
+// Options is a function that modifies the client configuration.
 type Options func(*client)
 
+// WithTemporalAddress sets the address of the temporal server.
+// This is used when the temporal client is not provided directly.
 func WithTemporalAddress(addr string) func(*client) {
 	return func(c *client) {
 		c.temporalAddr = addr
 	}
 }
 
+// WithTemporalClient sets the temporal client directly.
 func WithTemporalClient(cl temporalclient.Client) func(*client) {
 	return func(c *client) {
 		c.temporal = cl
 	}
 }
 
+// New creates a new client to communicate with the Cryptellation stack.
 func New(opts ...Options) (Client, error) {
 	var c client
 
@@ -95,10 +101,13 @@ func (c *client) ServicesInfo(ctx context.Context) (map[string]any, error) {
 	return res, eg.Wait()
 }
 
+// GetTemporalClient returns the internal temporal client.
 func (c *client) GetTemporalClient() temporalclient.Client {
 	return c.temporal
 }
 
+// Close closes the temporal client if it was created in this package.
+// If the client was provided externally, it is the caller's responsibility to close it.
 func (c *client) Close() {
 	// Close the temporal client if it was created in this package
 	if c.temporal != nil && c.temporalAddr != "" {
