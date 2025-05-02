@@ -79,11 +79,12 @@ func New(opts ...Options) (Client, error) {
 	}
 
 	// Check if either temporal client or address is provided
-	if c.temporal.client == nil && c.temporal.addr == "" {
+	switch {
+	case c.temporal.client == nil && c.temporal.addr == "":
 		return nil, errors.New("temporal client or address must be provided")
-	} else if c.temporal.client != nil && c.temporal.addr != "" {
+	case c.temporal.client != nil && c.temporal.addr != "":
 		return nil, errors.New("only one of temporal client or address must be provided")
-	} else if c.temporal.client == nil {
+	case c.temporal.client == nil:
 		cl, err := temporalclient.Dial(temporalclient.Options{
 			Logger:   c.temporal.logger,
 			HostPort: c.temporal.addr,
