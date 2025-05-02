@@ -7,6 +7,7 @@ import (
 	exchangesapi "github.com/cryptellation/exchanges/api"
 	exchangesclient "github.com/cryptellation/exchanges/pkg/client"
 	temporalclient "go.temporal.io/sdk/client"
+	temporalLog "go.temporal.io/sdk/log"
 	"golang.org/x/sync/errgroup"
 )
 
@@ -31,8 +32,11 @@ type Client interface {
 }
 
 type client struct {
-	temporal     temporalclient.Client
-	temporalAddr string
+	temporal struct {
+		client temporalclient.Client
+		addr   string
+		logger temporalLog.Logger
+	}
 
 	exchanges exchangesclient.Client
 }
@@ -44,14 +48,21 @@ type Options func(*client)
 // This is used when the temporal client is not provided directly.
 func WithTemporalAddress(addr string) func(*client) {
 	return func(c *client) {
-		c.temporalAddr = addr
+		c.temporal.addr = addr
 	}
 }
 
 // WithTemporalClient sets the temporal client directly.
 func WithTemporalClient(cl temporalclient.Client) func(*client) {
 	return func(c *client) {
-		c.temporal = cl
+		c.temporal.client = cl
+	}
+}
+
+// WithTemporalLogger sets the logger for the temporal client.
+func WithTemporalLogger(logger temporalLog.Logger) func(*client) {
+	return func(c *client) {
+		c.temporal.logger = logger
 	}
 }
 
@@ -59,26 +70,32 @@ func WithTemporalClient(cl temporalclient.Client) func(*client) {
 func New(opts ...Options) (Client, error) {
 	var c client
 
+	// Apply default options
+	c.temporal.logger = &DummyLogger{}
+
 	// Apply options
 	for _, opt := range opts {
 		opt(&c)
 	}
 
 	// Check if either temporal client or address is provided
-	if c.temporal == nil && c.temporalAddr == "" {
+	if c.temporal.client == nil && c.temporal.addr == "" {
 		return nil, errors.New("temporal client or address must be provided")
-	} else if c.temporal == nil {
+	} else if c.temporal.client != nil && c.temporal.addr != "" {
+		return nil, errors.New("only one of temporal client or address must be provided")
+	} else if c.temporal.client == nil {
 		cl, err := temporalclient.Dial(temporalclient.Options{
-			HostPort: c.temporalAddr,
+			Logger:   c.temporal.logger,
+			HostPort: c.temporal.addr,
 		})
 		if err != nil {
 			return nil, err
 		}
-		c.temporal = cl
+		c.temporal.client = cl
 	}
 
 	// Initialize services
-	c.exchanges = exchangesclient.New(c.temporal)
+	c.exchanges = exchangesclient.New(c.temporal.client)
 
 	return &c, nil
 }
@@ -103,14 +120,14 @@ func (c *client) ServicesInfo(ctx context.Context) (map[string]any, error) {
 
 // GetTemporalClient returns the internal temporal client.
 func (c *client) GetTemporalClient() temporalclient.Client {
-	return c.temporal
+	return c.temporal.client
 }
 
 // Close closes the temporal client if it was created in this package.
 // If the client was provided externally, it is the caller's responsibility to close it.
 func (c *client) Close() {
 	// Close the temporal client if it was created in this package
-	if c.temporal != nil && c.temporalAddr != "" {
-		c.temporal.Close()
+	if c.temporal.client != nil && c.temporal.addr != "" {
+		c.temporal.client.Close()
 	}
 }
