@@ -105,6 +105,7 @@ func New(opts ...Options) (Client, error) {
 
 	// Initialize services
 	c.exchanges = exchangesclient.New(c.temporal.client)
+	c.candlesticks = candlesticksclient.New(c.temporal.client)
 
 	return &c, nil
 }
