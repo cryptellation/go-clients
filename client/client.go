@@ -4,6 +4,8 @@ import (
 	"context"
 	"errors"
 
+	candlesticksapi "github.com/cryptellation/candlesticks/api"
+	candlesticksclient "github.com/cryptellation/candlesticks/pkg/clients"
 	exchangesapi "github.com/cryptellation/exchanges/api"
 	exchangesclient "github.com/cryptellation/exchanges/pkg/clients"
 	temporalclient "go.temporal.io/sdk/client"
@@ -13,6 +15,11 @@ import (
 
 // Client is a client for the Cryptellation stack.
 type Client interface {
+	// ListCandlesticks calls the candlesticks list workflow.
+	ListCandlesticks(
+		ctx context.Context,
+		params candlesticksapi.ListCandlesticksWorkflowParams,
+	) (res candlesticksapi.ListCandlesticksWorkflowResults, err error)
 	// GetExchange retrieves an exchange by name.
 	GetExchange(
 		ctx context.Context,
@@ -38,7 +45,8 @@ type client struct {
 		logger temporalLog.Logger
 	}
 
-	exchanges exchangesclient.Client
+	exchanges    exchangesclient.Client
+	candlesticks candlesticksclient.Client
 }
 
 // Options is a function that modifies the client configuration.
