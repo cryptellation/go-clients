@@ -6,7 +6,7 @@ import (
 	"go.temporal.io/sdk/workflow"
 )
 
-// Wf Client is a client for the cryptellation exchanges service from a workflow perspective.
+// WfClient is a client for the cryptellation exchanges service from a workflow perspective.
 type WfClient interface {
 	// GetExchange calls the exchange get workflow.
 	GetExchange(
