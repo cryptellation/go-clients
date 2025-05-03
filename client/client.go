@@ -5,7 +5,7 @@ import (
 	"errors"
 
 	exchangesapi "github.com/cryptellation/exchanges/api"
-	exchangesclient "github.com/cryptellation/exchanges/pkg/client"
+	exchangesclient "github.com/cryptellation/exchanges/pkg/clients"
 	temporalclient "go.temporal.io/sdk/client"
 	temporalLog "go.temporal.io/sdk/log"
 	"golang.org/x/sync/errgroup"

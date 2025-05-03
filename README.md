@@ -1,3 +1,3 @@
-# Cryptellation Golang Client
+# Cryptellation Golang Clients
 
-Golang client for the Cryptellation stack.
+Golang clients for the Cryptellation stack.
