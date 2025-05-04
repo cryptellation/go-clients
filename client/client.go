@@ -146,6 +146,16 @@ func (c *client) ServicesInfo(ctx context.Context) (map[string]any, error) {
 		return nil
 	})
 
+	eg.Go(func() error {
+		r, err := c.ticks.Info(egCtx)
+		if err != nil {
+			return err
+		}
+
+		res["ticks"] = r
+		return nil
+	})
+
 	return res, eg.Wait()
 }
 
