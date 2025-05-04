@@ -8,8 +8,11 @@ import (
 	candlesticksclient "github.com/cryptellation/candlesticks/pkg/clients"
 	exchangesapi "github.com/cryptellation/exchanges/api"
 	exchangesclient "github.com/cryptellation/exchanges/pkg/clients"
+	"github.com/cryptellation/ticks/api"
+	ticksclient "github.com/cryptellation/ticks/pkg/clients"
 	temporalclient "go.temporal.io/sdk/client"
 	temporalLog "go.temporal.io/sdk/log"
+	"go.temporal.io/sdk/workflow"
 	"golang.org/x/sync/errgroup"
 )
 
@@ -30,6 +33,12 @@ type Client interface {
 		ctx context.Context,
 		params exchangesapi.ListExchangesWorkflowParams,
 	) (exchangesapi.ListExchangesWorkflowResults, error)
+	// ListenToTicks listens to ticks from a specific exchange and trading pair.
+	ListenToTicks(
+		ctx context.Context,
+		exchange, pair string,
+		callback func(ctx workflow.Context, params api.ListenToTicksCallbackWorkflowParams) error,
+	) error
 
 	// ServicesInfo retrieves information about the services.
 	ServicesInfo(ctx context.Context) (map[string]any, error)
@@ -47,6 +56,7 @@ type client struct {
 
 	exchanges    exchangesclient.Client
 	candlesticks candlesticksclient.Client
+	ticks        ticksclient.Client
 }
 
 // Options is a function that modifies the client configuration.
@@ -106,6 +116,7 @@ func New(opts ...Options) (Client, error) {
 	// Initialize services
 	c.exchanges = exchangesclient.New(c.temporal.client)
 	c.candlesticks = candlesticksclient.New(c.temporal.client)
+	c.ticks = ticksclient.New(c.temporal.client)
 
 	return &c, nil
 }
