@@ -5,6 +5,7 @@ go 1.23.8
 require (
 	github.com/cryptellation/candlesticks v1.0.1
 	github.com/cryptellation/exchanges v1.1.0
+	github.com/cryptellation/sma v1.0.1
 	github.com/cryptellation/ticks v1.0.1
 	go.temporal.io/sdk v1.34.0
 	golang.org/x/sync v0.13.0
