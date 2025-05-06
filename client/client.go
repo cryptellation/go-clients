@@ -8,7 +8,9 @@ import (
 	candlesticksclient "github.com/cryptellation/candlesticks/pkg/clients"
 	exchangesapi "github.com/cryptellation/exchanges/api"
 	exchangesclient "github.com/cryptellation/exchanges/pkg/clients"
-	"github.com/cryptellation/ticks/api"
+	smaapi "github.com/cryptellation/sma/api"
+	smaclient "github.com/cryptellation/sma/pkg/clients"
+	ticksapi "github.com/cryptellation/ticks/api"
 	ticksclient "github.com/cryptellation/ticks/pkg/clients"
 	temporalclient "go.temporal.io/sdk/client"
 	temporalLog "go.temporal.io/sdk/log"
@@ -23,6 +25,7 @@ type Client interface {
 		ctx context.Context,
 		params candlesticksapi.ListCandlesticksWorkflowParams,
 	) (res candlesticksapi.ListCandlesticksWorkflowResults, err error)
+
 	// GetExchange retrieves an exchange by name.
 	GetExchange(
 		ctx context.Context,
@@ -33,11 +36,18 @@ type Client interface {
 		ctx context.Context,
 		params exchangesapi.ListExchangesWorkflowParams,
 	) (exchangesapi.ListExchangesWorkflowResults, error)
+
+	// ListSMA retrieves a list of simple moving averages (SMA) for a specific exchange and trading pair.
+	ListSMA(
+		ctx context.Context,
+		params smaapi.ListWorkflowParams,
+	) (res smaapi.ListWorkflowResults, err error)
+
 	// ListenToTicks listens to ticks from a specific exchange and trading pair.
 	ListenToTicks(
 		ctx context.Context,
 		exchange, pair string,
-		callback func(ctx workflow.Context, params api.ListenToTicksCallbackWorkflowParams) error,
+		callback func(ctx workflow.Context, params ticksapi.ListenToTicksCallbackWorkflowParams) error,
 	) error
 
 	// ServicesInfo retrieves information about the services.
@@ -56,6 +66,7 @@ type client struct {
 
 	exchanges    exchangesclient.Client
 	candlesticks candlesticksclient.Client
+	sma          smaclient.Client
 	ticks        ticksclient.Client
 }
 
@@ -116,6 +127,7 @@ func New(opts ...Options) (Client, error) {
 	// Initialize services
 	c.exchanges = exchangesclient.New(c.temporal.client)
 	c.candlesticks = candlesticksclient.New(c.temporal.client)
+	c.sma = smaclient.New(c.temporal.client)
 	c.ticks = ticksclient.New(c.temporal.client)
 
 	return &c, nil
@@ -143,6 +155,16 @@ func (c *client) ServicesInfo(ctx context.Context) (map[string]any, error) {
 		}
 
 		res["candlesticks"] = r
+		return nil
+	})
+
+	eg.Go(func() error {
+		r, err := c.sma.Info(egCtx)
+		if err != nil {
+			return err
+		}
+
+		res["sma"] = r
 		return nil
 	})
 
