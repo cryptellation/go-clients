@@ -10,6 +10,8 @@ import (
 	candlesticksclient "github.com/cryptellation/candlesticks/pkg/clients"
 	exchangesapi "github.com/cryptellation/exchanges/api"
 	exchangesclient "github.com/cryptellation/exchanges/pkg/clients"
+	forwardtestsapi "github.com/cryptellation/forwardtests/api"
+	forwardtestsclient "github.com/cryptellation/forwardtests/pkg/clients"
 	smaapi "github.com/cryptellation/sma/api"
 	smaclient "github.com/cryptellation/sma/pkg/clients"
 	ticksapi "github.com/cryptellation/ticks/api"
@@ -61,6 +63,17 @@ type Client interface {
 		params smaapi.ListWorkflowParams,
 	) (res smaapi.ListWorkflowResults, err error)
 
+	// NewForwardtest creates a new forwardtest.
+	NewForwardtest(
+		ctx context.Context,
+		params forwardtestsapi.CreateForwardtestWorkflowParams,
+	) (forwardtestsclient.Forwardtest, error)
+	// ListForwardtests lists the forwardtests.
+	ListForwardtests(
+		ctx context.Context,
+		params forwardtestsapi.ListForwardtestsWorkflowParams,
+	) ([]forwardtestsclient.Forwardtest, error)
+
 	// ListenToTicks listens to ticks from a specific exchange and trading pair.
 	ListenToTicks(
 		ctx context.Context,
@@ -83,8 +96,9 @@ type client struct {
 	}
 
 	backtests    backtestsclient.Client
-	exchanges    exchangesclient.Client
 	candlesticks candlesticksclient.Client
+	exchanges    exchangesclient.Client
+	forwardtests forwardtestsclient.Client
 	sma          smaclient.Client
 	ticks        ticksclient.Client
 }
@@ -157,56 +171,26 @@ func New(opts ...Options) (Client, error) {
 func (c *client) ServicesInfo(ctx context.Context) (map[string]any, error) {
 	eg, egCtx := errgroup.WithContext(ctx)
 	res := make(map[string]any)
+	callbacks := map[string]func(ctx context.Context) (any, error){
+		"backtests":    func(ctx context.Context) (any, error) { return c.backtests.Info(ctx) },
+		"candlesticks": func(ctx context.Context) (any, error) { return c.candlesticks.Info(ctx) },
+		"exchanges":    func(ctx context.Context) (any, error) { return c.exchanges.Info(ctx) },
+		"forwardtests": func(ctx context.Context) (any, error) { return c.forwardtests.Info(ctx) },
+		"sma":          func(ctx context.Context) (any, error) { return c.sma.Info(ctx) },
+		"ticks":        func(ctx context.Context) (any, error) { return c.ticks.Info(ctx) },
+	}
 
-	eg.Go(func() error {
-		r, err := c.backtests.Info(egCtx)
-		if err != nil {
-			return err
-		}
+	for name, callback := range callbacks {
+		eg.Go(func() error {
+			r, err := callback(egCtx)
+			if err != nil {
+				return err
+			}
 
-		res["backtests"] = r
-		return nil
-	})
-
-	eg.Go(func() error {
-		r, err := c.candlesticks.Info(egCtx)
-		if err != nil {
-			return err
-		}
-
-		res["candlesticks"] = r
-		return nil
-	})
-
-	eg.Go(func() error {
-		r, err := c.exchanges.Info(egCtx)
-		if err != nil {
-			return err
-		}
-
-		res["exchanges"] = r
-		return nil
-	})
-
-	eg.Go(func() error {
-		r, err := c.sma.Info(egCtx)
-		if err != nil {
-			return err
-		}
-
-		res["sma"] = r
-		return nil
-	})
-
-	eg.Go(func() error {
-		r, err := c.ticks.Info(egCtx)
-		if err != nil {
-			return err
-		}
-
-		res["ticks"] = r
-		return nil
-	})
+			res[name] = r
+			return nil
+		})
+	}
 
 	return res, eg.Wait()
 }
