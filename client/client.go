@@ -4,6 +4,8 @@ import (
 	"context"
 	"errors"
 
+	backtestsapi "github.com/cryptellation/backtests/api"
+	backtestsclient "github.com/cryptellation/backtests/pkg/clients"
 	candlesticksapi "github.com/cryptellation/candlesticks/api"
 	candlesticksclient "github.com/cryptellation/candlesticks/pkg/clients"
 	exchangesapi "github.com/cryptellation/exchanges/api"
@@ -20,6 +22,22 @@ import (
 
 // Client is a client for the Cryptellation stack.
 type Client interface {
+	// NewBacktest creates a new backtest.
+	NewBacktest(
+		ctx context.Context,
+		params backtestsapi.CreateBacktestWorkflowParams,
+	) (backtestsclient.Backtest, error)
+	// GetBacktest gets a backtest.
+	GetBacktest(
+		ctx context.Context,
+		params backtestsapi.GetBacktestWorkflowParams,
+	) (backtestsclient.Backtest, error)
+	// ListBacktests lists backtests.
+	ListBacktests(
+		ctx context.Context,
+		params backtestsapi.ListBacktestsWorkflowParams,
+	) ([]backtestsclient.Backtest, error)
+
 	// ListCandlesticks calls the candlesticks list workflow.
 	ListCandlesticks(
 		ctx context.Context,
@@ -64,6 +82,7 @@ type client struct {
 		logger temporalLog.Logger
 	}
 
+	backtests    backtestsclient.Client
 	exchanges    exchangesclient.Client
 	candlesticks candlesticksclient.Client
 	sma          smaclient.Client
@@ -125,8 +144,9 @@ func New(opts ...Options) (Client, error) {
 	}
 
 	// Initialize services
-	c.exchanges = exchangesclient.New(c.temporal.client)
+	c.backtests = backtestsclient.New(c.temporal.client)
 	c.candlesticks = candlesticksclient.New(c.temporal.client)
+	c.exchanges = exchangesclient.New(c.temporal.client)
 	c.sma = smaclient.New(c.temporal.client)
 	c.ticks = ticksclient.New(c.temporal.client)
 
@@ -139,12 +159,12 @@ func (c *client) ServicesInfo(ctx context.Context) (map[string]any, error) {
 	res := make(map[string]any)
 
 	eg.Go(func() error {
-		r, err := c.exchanges.Info(egCtx)
+		r, err := c.backtests.Info(egCtx)
 		if err != nil {
 			return err
 		}
 
-		res["exchanges"] = r
+		res["backtests"] = r
 		return nil
 	})
 
@@ -155,6 +175,16 @@ func (c *client) ServicesInfo(ctx context.Context) (map[string]any, error) {
 		}
 
 		res["candlesticks"] = r
+		return nil
+	})
+
+	eg.Go(func() error {
+		r, err := c.exchanges.Info(egCtx)
+		if err != nil {
+			return err
+		}
+
+		res["exchanges"] = r
 		return nil
 	})
 
