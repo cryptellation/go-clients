@@ -161,6 +161,7 @@ func New(opts ...Options) (Client, error) {
 	c.backtests = backtestsclient.New(c.temporal.client)
 	c.candlesticks = candlesticksclient.New(c.temporal.client)
 	c.exchanges = exchangesclient.New(c.temporal.client)
+	c.forwardtests = forwardtestsclient.New(c.temporal.client)
 	c.sma = smaclient.New(c.temporal.client)
 	c.ticks = ticksclient.New(c.temporal.client)
 
