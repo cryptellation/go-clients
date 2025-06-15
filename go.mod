@@ -8,7 +8,7 @@ require (
 	github.com/cryptellation/exchanges v1.1.0
 	github.com/cryptellation/forwardtests v1.0.1
 	github.com/cryptellation/runtime v1.4.2
-	github.com/cryptellation/sma v1.0.2
+	github.com/cryptellation/sma v1.0.5
 	github.com/cryptellation/ticks v1.0.1
 	go.temporal.io/sdk v1.34.0
 	golang.org/x/sync v0.14.0
