@@ -4,7 +4,7 @@ go 1.23.8
 
 require (
 	github.com/cryptellation/backtests v1.0.3
-	github.com/cryptellation/candlesticks v1.0.2
+	github.com/cryptellation/candlesticks v1.0.4
 	github.com/cryptellation/exchanges v1.1.0
 	github.com/cryptellation/forwardtests v1.0.1
 	github.com/cryptellation/runtime v1.4.2
