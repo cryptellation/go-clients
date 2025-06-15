@@ -6,8 +6,8 @@ github.com/client9/misspell v0.3.4/go.mod h1:qj6jICC3Q7zFZvVWo7KLAzC3yx5G7kyvSDk
 github.com/cncf/udpa/go v0.0.0-20191209042840-269d4d468f6f/go.mod h1:M8M6+tZqaGXZJjfX53e64911xZQV5JYwmTeXPW+k8Sc=
 github.com/cryptellation/backtests v1.0.3 h1:6dgOpcQGGtCXShMdr2mjv8DMH9bIUkNKJWZytbQahx8=
 github.com/cryptellation/backtests v1.0.3/go.mod h1:fVv5tDRGi9WnkqD9CdtrQArBZ+7s+T1sl8ks+Vyuuqc=
-github.com/cryptellation/candlesticks v1.0.2 h1:GiDkDkTMob93ryHRdwvViooPaGc0mNqfV4kstJB2NGY=
-github.com/cryptellation/candlesticks v1.0.2/go.mod h1:0R+YZ+PBJsV+jindXAzTKfCU7kq+4VpUfKhWv+028GQ=
+github.com/cryptellation/candlesticks v1.0.4 h1:OSU4OyIH1+iVsIfEBEjf8vdKOleeLqW0agdl7DV9NYo=
+github.com/cryptellation/candlesticks v1.0.4/go.mod h1:0R+YZ+PBJsV+jindXAzTKfCU7kq+4VpUfKhWv+028GQ=
 github.com/cryptellation/exchanges v1.1.0 h1:MFHZU8tDP07RhhbwPWXjn/VLI4+lW522IBvA4VB8noo=
 github.com/cryptellation/exchanges v1.1.0/go.mod h1:2iyJgSid50L76UjS5gzV3hnCeq1DS4u/tkaJuq/toKY=
 github.com/cryptellation/forwardtests v1.0.1 h1:ETbFfd+8hWfS/GOzi+j2lTxf8TYHAQpl5H6XhrNTXik=
