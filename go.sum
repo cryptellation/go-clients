@@ -14,8 +14,8 @@ github.com/cryptellation/forwardtests v1.0.1 h1:ETbFfd+8hWfS/GOzi+j2lTxf8TYHAQpl
 github.com/cryptellation/forwardtests v1.0.1/go.mod h1:z/CjD8x4Xqgjc7ntynIuceCDcIQpShirAmVySYOQORk=
 github.com/cryptellation/runtime v1.4.2 h1:nmw6+DCf/OtA5wkr3pqJ0gKjZuIY99Q4aKWZRg4tTkA=
 github.com/cryptellation/runtime v1.4.2/go.mod h1:9fCU3JXp50lIT/RQBIfyP/4yjSKfWAJSLPq6pGDJU2E=
-github.com/cryptellation/sma v1.0.2 h1:2PEWNqBthOxbpCYJxd3jdzVmCuE6o6T85/4GsNy7jwI=
-github.com/cryptellation/sma v1.0.2/go.mod h1:F9IoqJXyyMKgLB+C2Rgsw5jUIdraRZibgMF5od72Y40=
+github.com/cryptellation/sma v1.0.5 h1:/wWkuclOhnJGXx97iVSfZvgOkfW57tEiIGDcJodq/LQ=
+github.com/cryptellation/sma v1.0.5/go.mod h1:NJ3dHno2Ra3yVeIoFuSK4LTWiQ5E6uqRayemLZIvgwg=
 github.com/cryptellation/ticks v1.0.1 h1:ejJqbfBPY72SaS+aQlGAfBEc4lDWY1zf44GLt1wQFeE=
 github.com/cryptellation/ticks v1.0.1/go.mod h1:sJ8aUr7QDX3YmlCrEHl9clvepTgzjaV6k8e1kdFIuqw=
 github.com/cryptellation/timeseries v1.1.0 h1:S5xFLGukQg+k22+L5151Na95+WjhhDKMK0hBkxfJYgo=
