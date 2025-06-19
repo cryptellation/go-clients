@@ -14,11 +14,9 @@ import (
 	forwardtestsclient "github.com/cryptellation/forwardtests/pkg/clients"
 	smaapi "github.com/cryptellation/sma/api"
 	smaclient "github.com/cryptellation/sma/pkg/clients"
-	ticksapi "github.com/cryptellation/ticks/api"
 	ticksclient "github.com/cryptellation/ticks/pkg/clients"
 	temporalclient "go.temporal.io/sdk/client"
 	temporalLog "go.temporal.io/sdk/log"
-	"go.temporal.io/sdk/workflow"
 	"golang.org/x/sync/errgroup"
 )
 
@@ -77,8 +75,8 @@ type Client interface {
 	// ListenToTicks listens to ticks from a specific exchange and trading pair.
 	ListenToTicks(
 		ctx context.Context,
+		listener ticksclient.ListenerParams,
 		exchange, pair string,
-		callback func(ctx workflow.Context, params ticksapi.ListenToTicksCallbackWorkflowParams) error,
 	) error
 
 	// ServicesInfo retrieves information about the services.
