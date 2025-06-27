@@ -5,6 +5,7 @@ import (
 	"errors"
 
 	backtestsapi "github.com/cryptellation/backtests/api"
+	"github.com/cryptellation/backtests/pkg/backtest"
 	backtestsclient "github.com/cryptellation/backtests/pkg/clients"
 	candlesticksapi "github.com/cryptellation/candlesticks/api"
 	candlesticksclient "github.com/cryptellation/candlesticks/pkg/clients"
@@ -12,6 +13,7 @@ import (
 	exchangesclient "github.com/cryptellation/exchanges/pkg/clients"
 	forwardtestsapi "github.com/cryptellation/forwardtests/api"
 	forwardtestsclient "github.com/cryptellation/forwardtests/pkg/clients"
+	"github.com/cryptellation/runtime"
 	smaapi "github.com/cryptellation/sma/api"
 	smaclient "github.com/cryptellation/sma/pkg/clients"
 	ticksclient "github.com/cryptellation/ticks/pkg/clients"
@@ -25,7 +27,8 @@ type Client interface {
 	// NewBacktest creates a new backtest.
 	NewBacktest(
 		ctx context.Context,
-		params backtestsapi.CreateBacktestWorkflowParams,
+		params backtest.Parameters,
+		callbacks runtime.Callbacks,
 	) (backtestsclient.Backtest, error)
 	// GetBacktest gets a backtest.
 	GetBacktest(

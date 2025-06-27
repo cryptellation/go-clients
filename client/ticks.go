@@ -7,6 +7,8 @@ import (
 )
 
 // ListenToTicks listens to ticks from a specific exchange and trading pair.
+// Note: This method is deprecated. The new ticks client API requires a worker and task queue.
+// Use the ticks client directly with a worker for listening to ticks.
 func (c client) ListenToTicks(
 	ctx context.Context,
 	listener clients.ListenerParams,
