@@ -17,6 +17,7 @@ import (
 	smaapi "github.com/cryptellation/sma/api"
 	smaclient "github.com/cryptellation/sma/pkg/clients"
 	ticksclient "github.com/cryptellation/ticks/pkg/clients"
+	"github.com/google/uuid"
 	temporalclient "go.temporal.io/sdk/client"
 	temporalLog "go.temporal.io/sdk/log"
 	"golang.org/x/sync/errgroup"
@@ -80,6 +81,14 @@ type Client interface {
 		ctx context.Context,
 		listener ticksclient.ListenerParams,
 		exchange, pair string,
+	) error
+
+	// StopListeningToTicks unregisters a callback workflow from ticks for a given exchange and pair.
+	StopListeningToTicks(
+		ctx context.Context,
+		listener uuid.UUID,
+		exchange string,
+		pair string,
 	) error
 
 	// ServicesInfo retrieves information about the services.
