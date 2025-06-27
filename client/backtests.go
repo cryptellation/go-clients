@@ -4,15 +4,18 @@ import (
 	"context"
 
 	"github.com/cryptellation/backtests/api"
+	"github.com/cryptellation/backtests/pkg/backtest"
 	"github.com/cryptellation/backtests/pkg/clients"
+	"github.com/cryptellation/runtime"
 )
 
 // NewBacktest creates a new backtest.
 func (c client) NewBacktest(
 	ctx context.Context,
-	params api.CreateBacktestWorkflowParams,
+	params backtest.Parameters,
+	callbacks runtime.Callbacks,
 ) (clients.Backtest, error) {
-	return c.backtests.NewBacktest(ctx, params)
+	return c.backtests.NewBacktest(ctx, params, callbacks)
 }
 
 // GetBacktest gets a backtest.

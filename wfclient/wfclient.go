@@ -42,7 +42,7 @@ type WfClient interface {
 
 // SubscribeToPriceParams is the parameters to subscribe to price updates.
 type SubscribeToPriceParams struct {
-	Run      runtime.Run
+	Context  runtime.Context
 	Exchange string
 	Pair     string
 }

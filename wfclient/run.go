@@ -9,14 +9,14 @@ import (
 // SubscribeToPrice subscribes to specific price updates.
 func (c wfClient) SubscribeToPrice(ctx workflow.Context, params SubscribeToPriceParams) error {
 	childWorkflowOptions := workflow.ChildWorkflowOptions{
-		TaskQueue: params.Run.ParentTaskQueue,
+		TaskQueue: params.Context.ParentTaskQueue,
 	}
 	ctx = workflow.WithChildOptions(ctx, childWorkflowOptions)
 
-	switch params.Run.Mode {
+	switch params.Context.Mode {
 	case runtime.ModeBacktest:
 		_, err := c.backtests.SubscribeToPrice(ctx, backtestsapi.SubscribeToPriceWorkflowParams{
-			BacktestID: params.Run.ID,
+			BacktestID: params.Context.ID,
 			Exchange:   params.Exchange,
 			Pair:       params.Pair,
 		})

@@ -3,11 +3,11 @@ module github.com/cryptellation/go-clients
 go 1.23.8
 
 require (
-	github.com/cryptellation/backtests v1.0.3
+	github.com/cryptellation/backtests v1.1.2
 	github.com/cryptellation/candlesticks v1.0.4
 	github.com/cryptellation/exchanges v1.1.0
 	github.com/cryptellation/forwardtests v1.0.1
-	github.com/cryptellation/runtime v1.4.3
+	github.com/cryptellation/runtime v1.7.0
 	github.com/cryptellation/sma v1.0.5
 	github.com/cryptellation/ticks v1.2.1
 	go.temporal.io/sdk v1.34.0
@@ -31,7 +31,6 @@ require (
 	github.com/stretchr/objx v0.5.2 // indirect
 	github.com/stretchr/testify v1.10.0 // indirect
 	go.temporal.io/api v1.50.0 // indirect
-	go.uber.org/mock v0.5.2 // indirect
 	golang.org/x/net v0.41.0 // indirect
 	golang.org/x/sys v0.33.0 // indirect
 	golang.org/x/text v0.26.0 // indirect
