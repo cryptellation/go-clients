@@ -8,6 +8,7 @@ import (
 	candlesticksclient "github.com/cryptellation/candlesticks/pkg/clients"
 	exchangesapi "github.com/cryptellation/exchanges/api"
 	exchangesclient "github.com/cryptellation/exchanges/pkg/clients"
+	forwardtestsclient "github.com/cryptellation/forwardtests/pkg/clients"
 	"github.com/cryptellation/runtime"
 	"go.temporal.io/sdk/workflow"
 )
@@ -51,6 +52,7 @@ type wfClient struct {
 	backtests    backtestsclient.WfClient
 	exchanges    exchangesclient.WfClient
 	candlesticks candlesticksclient.WfClient
+	forwardtests forwardtestsclient.WfClient
 }
 
 // NewWfClient creates a new workflow client.
@@ -58,6 +60,7 @@ type wfClient struct {
 // It is not used to call workflows from outside the workflow environment.
 func NewWfClient() WfClient {
 	return wfClient{
-		exchanges: exchangesclient.NewWfClient(),
+		exchanges:    exchangesclient.NewWfClient(),
+		forwardtests: forwardtestsclient.NewWfClient(),
 	}
 }

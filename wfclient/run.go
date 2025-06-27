@@ -2,6 +2,7 @@ package wfclient
 
 import (
 	backtestsapi "github.com/cryptellation/backtests/api"
+	forwardtestsapi "github.com/cryptellation/forwardtests/api"
 	"github.com/cryptellation/runtime"
 	"go.temporal.io/sdk/workflow"
 )
@@ -22,7 +23,12 @@ func (c wfClient) SubscribeToPrice(ctx workflow.Context, params SubscribeToPrice
 		})
 		return err
 	case runtime.ModeForwardtest:
-		return ErrNotImplemented
+		_, err := c.forwardtests.SubscribeToPrice(ctx, forwardtestsapi.SubscribeToPriceWorkflowParams{
+			ForwardtestID: params.Context.ID,
+			Exchange:      params.Exchange,
+			Pair:          params.Pair,
+		})
+		return err
 	case runtime.ModeLive:
 		return ErrNotImplemented
 	default:

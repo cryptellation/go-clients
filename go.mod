@@ -5,11 +5,12 @@ go 1.23.8
 require (
 	github.com/cryptellation/backtests v1.1.2
 	github.com/cryptellation/candlesticks v1.0.4
-	github.com/cryptellation/exchanges v1.1.0
-	github.com/cryptellation/forwardtests v1.0.1
+	github.com/cryptellation/exchanges v1.1.1
+	github.com/cryptellation/forwardtests v1.1.1
 	github.com/cryptellation/runtime v1.7.0
-	github.com/cryptellation/sma v1.0.5
+	github.com/cryptellation/sma v1.0.6
 	github.com/cryptellation/ticks v1.2.1
+	github.com/google/uuid v1.6.0
 	go.temporal.io/sdk v1.34.0
 	golang.org/x/sync v0.15.0
 )
@@ -21,9 +22,8 @@ require (
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang/mock v1.6.0 // indirect
 	github.com/google/go-cmp v0.7.0 // indirect
-	github.com/google/uuid v1.6.0 // indirect
 	github.com/grpc-ecosystem/go-grpc-middleware v1.4.0 // indirect
-	github.com/grpc-ecosystem/grpc-gateway/v2 v2.27.0 // indirect
+	github.com/grpc-ecosystem/grpc-gateway/v2 v2.27.1 // indirect
 	github.com/iancoleman/strcase v0.3.0 // indirect
 	github.com/nexus-rpc/sdk-go v0.4.0 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
