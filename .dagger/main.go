@@ -23,7 +23,7 @@ import (
 
 type GoClient struct{}
 
-// Publish a new release
+// Publish a new release.
 func (ci *GoClient) PublishTag(
 	ctx context.Context,
 	sourceDir *dagger.Directory,
@@ -45,29 +45,42 @@ func (ci *GoClient) PublishTag(
 }
 
 // Check returns a container that runs the checker.
-func (mod *GoClient) Check(
+func (ci *GoClient) Check(
 	sourceDir *dagger.Directory,
 ) *dagger.Container {
 	c := dag.Container().From("ghcr.io/cryptellation/checker")
-	return mod.withGoCodeAndCacheAsWorkDirectory(c, sourceDir).
+	return ci.withGoCodeAndCacheAsWorkDirectory(c, sourceDir).
 		WithExec([]string{"checker", "--check-test-tags=false"})
 }
 
-// Lint runs golangci-lint on the source code in the given directory.
-func (mod *GoClient) Lint(sourceDir *dagger.Directory) *dagger.Container {
+// Lint runs golangci-lint on the main source code in the given directory.
+func (ci *GoClient) Lint(sourceDir *dagger.Directory) *dagger.Container {
 	c := dag.Container().
 		From("golangci/golangci-lint:v1.62.0").
 		WithMountedCache("/root/.cache/golangci-lint", dag.CacheVolume("golangci-lint"))
 
-	c = mod.withGoCodeAndCacheAsWorkDirectory(c, sourceDir)
+	c = ci.withGoCodeAndCacheAsWorkDirectory(c, sourceDir)
 
-	return c.WithExec([]string{"golangci-lint", "run", "--timeout", "10m"})
+	// Lint main repo only
+	return c.WithExec([]string{"golangci-lint", "run", "--timeout", "10m", "./..."})
+}
+
+// LintDagger runs golangci-lint on the .dagger directory in the given directory.
+func (ci *GoClient) LintDagger(sourceDir *dagger.Directory) *dagger.Container {
+	c := dag.Container().
+		From("golangci/golangci-lint:v1.62.0").
+		WithMountedCache("/root/.cache/golangci-lint", dag.CacheVolume("golangci-lint"))
+
+	c = ci.withGoCodeAndCacheAsWorkDirectory(c, sourceDir)
+
+	// Lint .dagger directory using parent config and module context
+	return c.WithExec([]string{"sh", "-c", "cd .dagger && golangci-lint run --config ../.golangci.yml --timeout 10m ."})
 }
 
 // UnitTests returns a container that runs the unit tests.
-func (mod *GoClient) UnitTests(sourceDir *dagger.Directory) *dagger.Container {
+func (ci *GoClient) UnitTests(sourceDir *dagger.Directory) *dagger.Container {
 	c := dag.Container().From("golang:" + goVersion() + "-alpine")
-	return mod.withGoCodeAndCacheAsWorkDirectory(c, sourceDir).
+	return ci.withGoCodeAndCacheAsWorkDirectory(c, sourceDir).
 		WithExec([]string{"sh", "-c",
 			"go test ./...",
 		})
@@ -77,7 +90,7 @@ func goVersion() string {
 	return runtime.Version()[2:]
 }
 
-func (mod *GoClient) withGoCodeAndCacheAsWorkDirectory(
+func (ci *GoClient) withGoCodeAndCacheAsWorkDirectory(
 	c *dagger.Container,
 	sourceDir *dagger.Directory,
 ) *dagger.Container {
