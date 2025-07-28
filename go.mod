@@ -5,11 +5,11 @@ go 1.23.8
 require (
 	github.com/cryptellation/backtests v1.1.2
 	github.com/cryptellation/candlesticks v1.0.4
-	github.com/cryptellation/exchanges v1.1.1
+	github.com/cryptellation/exchanges v1.2.0
 	github.com/cryptellation/forwardtests v1.1.1
 	github.com/cryptellation/runtime v1.7.0
 	github.com/cryptellation/sma v1.0.6
-	github.com/cryptellation/ticks v1.2.1
+	github.com/cryptellation/ticks v1.3.1
 	github.com/google/uuid v1.6.0
 	go.temporal.io/sdk v1.34.0
 	golang.org/x/sync v0.15.0
