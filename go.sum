@@ -8,6 +8,8 @@ github.com/cryptellation/backtests v1.1.2 h1:2I9cyRC/FYGc8Em/uw+MYqvouy0OGUH6b5+
 github.com/cryptellation/backtests v1.1.2/go.mod h1:UzHMaFRREe8pAdLIxkqa+/VfjtFwL4KbnPnYQpLU82A=
 github.com/cryptellation/candlesticks v1.0.4 h1:OSU4OyIH1+iVsIfEBEjf8vdKOleeLqW0agdl7DV9NYo=
 github.com/cryptellation/candlesticks v1.0.4/go.mod h1:0R+YZ+PBJsV+jindXAzTKfCU7kq+4VpUfKhWv+028GQ=
+github.com/cryptellation/candlesticks v1.1.0 h1:4l46/xInwGJxNFGCvFXDLmgrMkOJBu+R/l1o24JmzFk=
+github.com/cryptellation/candlesticks v1.1.0/go.mod h1:0lyK2y9RNKUOGnQFkeoyMCrkTuccdcnHXx4fndYVA8Y=
 github.com/cryptellation/exchanges v1.1.1 h1:bLXrfjKEAJGHasA8dROZTgiMQddRxZjdn6+XRecY/aM=
 github.com/cryptellation/exchanges v1.1.1/go.mod h1:2iyJgSid50L76UjS5gzV3hnCeq1DS4u/tkaJuq/toKY=
 github.com/cryptellation/forwardtests v1.1.1 h1:amKOjLEqMJ3PDzhMpLPzXEOPih12MiihSBYgBVueffo=
