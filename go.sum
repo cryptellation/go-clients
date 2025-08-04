@@ -14,6 +14,8 @@ github.com/cryptellation/exchanges v1.1.1 h1:bLXrfjKEAJGHasA8dROZTgiMQddRxZjdn6+
 github.com/cryptellation/exchanges v1.1.1/go.mod h1:2iyJgSid50L76UjS5gzV3hnCeq1DS4u/tkaJuq/toKY=
 github.com/cryptellation/forwardtests v1.1.1 h1:amKOjLEqMJ3PDzhMpLPzXEOPih12MiihSBYgBVueffo=
 github.com/cryptellation/forwardtests v1.1.1/go.mod h1:qG240vFOEmGbctY/T9jHcNEJjB92/xcEzo5sGPJhPNM=
+github.com/cryptellation/forwardtests v1.2.0 h1:QSGZFU8PWlkMHtqs9E0VVBrnKjcchwno+0zShTysucE=
+github.com/cryptellation/forwardtests v1.2.0/go.mod h1:lFvSePDBoMQYkUZUiYYuwWBwcUGalqPYSSlC0Gczi4Y=
 github.com/cryptellation/runtime v1.7.0 h1:8qCi8nBAsjQyF1a2makR1JIHuI9jSSJBWGS1NRoRfWE=
 github.com/cryptellation/runtime v1.7.0/go.mod h1:EFaH6DdIGe4eEPsapFKK5uIJZNII7MIGT2eWjl09RYU=
 github.com/cryptellation/sma v1.0.6 h1:Jtgg83vWDEIw24srmBz5eRig4nlBde7ueAHRnNizLYc=
