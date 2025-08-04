@@ -3,8 +3,8 @@ module github.com/cryptellation/go-clients
 go 1.23.8
 
 require (
-	github.com/cryptellation/backtests v1.1.2
-	github.com/cryptellation/candlesticks v1.0.4
+	github.com/cryptellation/backtests v1.2.4
+	github.com/cryptellation/candlesticks v1.1.0
 	github.com/cryptellation/exchanges v1.1.1
 	github.com/cryptellation/forwardtests v1.1.1
 	github.com/cryptellation/runtime v1.7.0
@@ -16,7 +16,7 @@ require (
 )
 
 require (
-	github.com/cryptellation/timeseries v1.1.0 // indirect
+	github.com/cryptellation/timeseries v1.2.0 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/facebookgo/clock v0.0.0-20150410010913-600d898af40a // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
