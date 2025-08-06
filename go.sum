@@ -6,6 +6,8 @@ github.com/client9/misspell v0.3.4/go.mod h1:qj6jICC3Q7zFZvVWo7KLAzC3yx5G7kyvSDk
 github.com/cncf/udpa/go v0.0.0-20191209042840-269d4d468f6f/go.mod h1:M8M6+tZqaGXZJjfX53e64911xZQV5JYwmTeXPW+k8Sc=
 github.com/cryptellation/backtests v1.1.2 h1:2I9cyRC/FYGc8Em/uw+MYqvouy0OGUH6b5+UAmUdeNY=
 github.com/cryptellation/backtests v1.1.2/go.mod h1:UzHMaFRREe8pAdLIxkqa+/VfjtFwL4KbnPnYQpLU82A=
+github.com/cryptellation/backtests v1.2.4 h1:cJ8CxTAOCfht0LGxaeO9vRxuzs2HeoLjoyN1G5X8Dns=
+github.com/cryptellation/backtests v1.2.4/go.mod h1:iTk8Fieo70RdZJrD+ToAbgYseSz9RtK7FRoSY1xtuC4=
 github.com/cryptellation/candlesticks v1.0.4 h1:OSU4OyIH1+iVsIfEBEjf8vdKOleeLqW0agdl7DV9NYo=
 github.com/cryptellation/candlesticks v1.0.4/go.mod h1:0R+YZ+PBJsV+jindXAzTKfCU7kq+4VpUfKhWv+028GQ=
 github.com/cryptellation/candlesticks v1.1.0 h1:4l46/xInwGJxNFGCvFXDLmgrMkOJBu+R/l1o24JmzFk=
