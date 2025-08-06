@@ -14,6 +14,8 @@ github.com/cryptellation/candlesticks v1.1.0 h1:4l46/xInwGJxNFGCvFXDLmgrMkOJBu+R
 github.com/cryptellation/candlesticks v1.1.0/go.mod h1:0lyK2y9RNKUOGnQFkeoyMCrkTuccdcnHXx4fndYVA8Y=
 github.com/cryptellation/exchanges v1.1.1 h1:bLXrfjKEAJGHasA8dROZTgiMQddRxZjdn6+XRecY/aM=
 github.com/cryptellation/exchanges v1.1.1/go.mod h1:2iyJgSid50L76UjS5gzV3hnCeq1DS4u/tkaJuq/toKY=
+github.com/cryptellation/exchanges v1.2.0 h1:PYhFhLz2d5ccaPAnzn3+4CCtKeTdzMPSFZVOgp9Aibw=
+github.com/cryptellation/exchanges v1.2.0/go.mod h1:6fO2AeYKdUSklP10oBdihV1Cl0cSNR/tGp362Llkw18=
 github.com/cryptellation/forwardtests v1.1.1 h1:amKOjLEqMJ3PDzhMpLPzXEOPih12MiihSBYgBVueffo=
 github.com/cryptellation/forwardtests v1.1.1/go.mod h1:qG240vFOEmGbctY/T9jHcNEJjB92/xcEzo5sGPJhPNM=
 github.com/cryptellation/forwardtests v1.2.0 h1:QSGZFU8PWlkMHtqs9E0VVBrnKjcchwno+0zShTysucE=
@@ -26,6 +28,8 @@ github.com/cryptellation/sma v1.1.0 h1:zZ3cgA8woBtrdupQKbC4eE+5n8QJ99l2wceFCoaG9
 github.com/cryptellation/sma v1.1.0/go.mod h1:zGti7Eg3NtVaHGzqLaS9bCidMYnfuBuZD5gh/Qh84zM=
 github.com/cryptellation/ticks v1.2.1 h1:onvm8kmEyBxK5ELWrzUqqCd8+6BT3LhPfBmUP11J6Vo=
 github.com/cryptellation/ticks v1.2.1/go.mod h1:tTMMu1U1e1I1J9Dp73KGh411TWrKcYmB4xORNJNPHtE=
+github.com/cryptellation/ticks v1.3.1 h1:iMVSQIyWy+xIj9237FB4WwvP4QgweCub5dpNEoVXOtk=
+github.com/cryptellation/ticks v1.3.1/go.mod h1:8Gyw4D7WsKJR4mTQS3UyLjlG83Bx/Q1VGatsj6HNLyg=
 github.com/cryptellation/timeseries v1.1.0 h1:S5xFLGukQg+k22+L5151Na95+WjhhDKMK0hBkxfJYgo=
 github.com/cryptellation/timeseries v1.1.0/go.mod h1:SxqmKOjn/l5AXZGaLGA47oScXzpTcXtnmfom88uZdaY=
 github.com/cryptellation/timeseries v1.2.0 h1:x90TnFhE3H4zPWEgLLekPMG7t611cnFvNU9DnFyCiD0=
